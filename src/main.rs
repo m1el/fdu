@@ -91,7 +91,7 @@ fn main() {
                 st = st.trim_left_matches(&root);
                 if opts.flamegraph {
                     let show = st.replace(|c|c=='/'||c=='\\', ";");
-                    println!("{1} {0}", len, show);
+                    println!("{1} {0}", len, show.trim_left_matches(";"));
                 } else if opts.reverse {
                     println!("{1} {0}", len, st);
                 } else {
