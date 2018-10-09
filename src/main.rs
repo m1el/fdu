@@ -53,10 +53,13 @@ fn main() {
         roots.push(".".to_string());
     }
 
+    let one_root = roots.len() == 1;
+
     for root in roots {
         let mut total = 0u64;
         let mut dir_set = HashSet::<Key>::new();
         let mut file_set = HashSet::<Key>::new();
+
         let iter = WalkDir::new(&root)
             .into_iter()
             .filter_entry(|entry| {
@@ -77,18 +80,24 @@ fn main() {
                 }
                 Some((path.to_owned(), len))
             });
+
         for (path, len) in iter {
             total += len;
             if opts.list_files {
                 let disp;
                 let mut st;
+
                 if let Some(path_str) = path.to_str() {
                     st = path_str;
                 } else {
                     disp = path.display().to_string();
                     st = &disp;
                 }
-                st = st.trim_left_matches(&root);
+
+                if one_root {
+                    st = st.trim_left_matches(&root);
+                }
+
                 if opts.flamegraph {
                     let show = st.replace(|c|c=='/'||c=='\\', ";");
                     println!("{1} {0}", len, show.trim_left_matches(";"));
@@ -99,6 +108,7 @@ fn main() {
                 }
             }
         }
+
         if !opts.list_files {
             println!("{} {}", root, total);
         }
