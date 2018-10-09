@@ -1,0 +1,8 @@
+[package]
+name = "fdu"
+version = "0.1.0"
+authors = ["Igor null <m1el.2027@gmail.com>"]
+
+[dependencies]
+same-file = { git = "https://github.com/m1el/same-file.git", branch="extract-key" }
+walkdir = "2"
