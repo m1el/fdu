@@ -2,7 +2,9 @@
 name = "fdu"
 version = "0.1.0"
 authors = ["Igor null <m1el.2027@gmail.com>"]
+license = "MIT"
 
 [dependencies]
 same-file = { git = "https://github.com/m1el/same-file.git", branch="extract-key" }
+getopts = "0.2"
 walkdir = "2"
